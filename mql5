@@ -1,0 +1,88 @@
+
+//+------------------------------------------------------------------+
+//|                                              Global Trend Lines  |
+//|                             Developed by Forex Robot Easy Team   |
+//|                                              forexroboteasy.com  |
+//+------------------------------------------------------------------+
+
+// Global variables
+double BuyZoneLevel; // Variable to store the buy zone level
+double SellZoneLevel; // Variable to store the sell zone level
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Calculate the buy and sell zones based on the trend levels
+    CalculateBuySellZones();
+    
+    // Draw the buy and sell zones on the chart
+    DrawBuySellZones();
+    
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator calculation function                            |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+    // Calculate the buy and sell zones based on the updated trend levels
+    CalculateBuySellZones();
+    
+    // Draw the buy and sell zones on the chart
+    DrawBuySellZones();
+    
+    return(rates_total);
+}
+
+//+------------------------------------------------------------------+
+//| Calculate buy and sell zones based on trend levels                |
+//+------------------------------------------------------------------+
+void CalculateBuySellZones()
+{
+    // Add your advanced algorithms here to accurately identify trend levels
+    // and calculate the buy and sell zones based on these levels
+    
+    // Set the buy and sell zone levels
+    BuyZoneLevel = 1.1000;
+    SellZoneLevel = 1.2000;
+}
+
+//+------------------------------------------------------------------+
+//| Draw buy and sell zones on the chart                              |
+//+------------------------------------------------------------------+
+void DrawBuySellZones()
+{
+    // Add your code here to draw the buy and sell zones on the chart
+    // using the BuyZoneLevel and SellZoneLevel variables
+    
+    // Example code to draw a horizontal line at the buy zone level
+    ObjectCreate(0, 'BuyZone', OBJ_HLINE, 0, 0, BuyZoneLevel);
+    ObjectSetInteger(0, 'BuyZone', OBJPROP_COLOR, clrGreen);
+    
+    // Example code to draw a horizontal line at the sell zone level
+    ObjectCreate(0, 'SellZone', OBJ_HLINE, 0, 0, SellZoneLevel);
+    ObjectSetInteger(0, 'SellZone', OBJPROP_COLOR, clrRed);
+}
+
+//+------------------------------------------------------------------+
+//| Logical conclusion                                               |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Add your code here to clean up any objects or variables used by the indicator
+    // when the indicator is removed from the chart
+    ObjectDelete(0, 'BuyZone');
+    ObjectDelete(0, 'SellZone');
+}
